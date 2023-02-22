@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 
 
 import requests
@@ -27,18 +27,18 @@ def get_cvss_score(cve_id, version):
             cvss_score = cvss_element.text.strip().split()[0]
             cvss_severity = cvss_element.text.strip().split()[1]
         else:
-            cvss_score = None
-            cvss_severity = None
+            cvss_score = 0
+            cvss_severity = 0
 
         # Return the results
         return cvss_score, cvss_severity
     else:
         # Return None if the request was not successful
-        return None, None
+        return 0, 0
 
-# Example usage
-#cve_id = "CVE-2021-23841"
-#cvssv2_score, cvssv2_severity = get_cvss_score(cve_id, 'V2')
-#cvssv3_score, cvssv3_severity = get_cvss_score(cve_id, 'V3')
-#print(f"CVSSv2 score for {cve_id}: {cvssv2_score} ({cvssv2_severity})")
-#print(f"CVSSv3 score for {cve_id}: {cvssv3_score} ({cvssv3_severity})")
+#Example usage
+# cve_id = "CVE-2019-1543"
+# cvssv2_score, cvssv2_severity = get_cvss_score(cve_id, 'V2')
+# cvssv3_score, cvssv3_severity = get_cvss_score(cve_id, 'V3')
+# print(f"CVSSv2 score for {cve_id}: {cvssv2_score} ({cvssv2_severity})")
+# print(f"CVSSv3 score for {cve_id}: {cvssv3_score} ({cvssv3_severity})")
