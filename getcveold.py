@@ -4,7 +4,8 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import re
-from getCVSSScore import get_cvss_score 
+from getCVSSScore import get_cvss_score
+from getversionsaffected import  get_versions_between
 
 url = 'https://www.openssl.org/news/vulnerabilities.html'
 response = requests.get(url)
@@ -22,7 +23,21 @@ for row in soup.select('#content > div > article > dl > dt'):
     for li in col3_list:
         col3_text = li.text.strip().replace('OpenSSL', '').replace('(', ',').strip(')')
         gitstring = ",git commit) ,"
-        premsupp = "premium support), " 
+        premsupp = ",premium support) "
+        
+        for part in col3_text.split(','):
+            if 'Fixed in' in part:
+                thisfixedin = part.replace('Fixed in','').strip()
+            elif 'Affected since' in part:
+                thisaffectedsince = part.replace('Affected since','').strip()  
+                  
+            
+        
+        # print(f'fixed in is: {thisfixedin}')
+        # print(f'affected since is: {thisaffectedsince}')
+        
+        # affected_versions = get_versions_between(thisaffectedsince,thisfixedin)
+        # print(affected_versions) 
         col3_text = col3_text.replace(gitstring, '').replace(premsupp, "")
         col3.append(col3_text)
         #print(col3)

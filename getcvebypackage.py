@@ -20,7 +20,7 @@ for version in openssl_versions:
     response = requests.get(api_url)
     response_json = response.json()
     
-    print(response_json)
+    #print(response_json)
     
     # Extract relevant CVE information from response
     cve_items = response_json['result']['CVE_Items']
